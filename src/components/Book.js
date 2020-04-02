@@ -14,7 +14,7 @@ function Item(props) {
     <li>
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${item.imageLinks.smallThumbnail})` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${item.imageLinks && item.imageLinks.smallThumbnail})` }}></div>
           <div className="book-shelf-changer">
             <select 
             value={item.shelf}
@@ -27,7 +27,7 @@ function Item(props) {
           </div>
         </div>
         <div className="book-title">{item.title}</div>
-        <div className="book-authors">{item.authors[0]}</div>
+        <div className="book-authors">{item.authors ? item.authors[0] : "author"}</div>
       </div>
     </li>
   )
