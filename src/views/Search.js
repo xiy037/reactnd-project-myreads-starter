@@ -14,17 +14,22 @@ class Search extends React.Component {
 
   handleSearch = (e) => {
     const userInput = e.target.value.trim();
-    if (e.key === "Enter" && userInput !== "") {
-      BooksAPI.search(userInput).then((data) => {
-        if (data) {
-          this.setState((state) => {
-            state.result = data;
-            state.input = userInput;
-            console.log(state);
-            return state;
-          });
-        }
-      });
+    if (e.key === "Enter") {
+      if (userInput !== "") {
+        BooksAPI.search(userInput).then((data) => {
+          if (data) {
+            this.setState((state) => {
+              state.result = data;
+              state.input = userInput;
+              console.log(state);
+              return state;
+            });
+          }
+        });
+      } else {
+        alert("Empty Input! Please search for valid keywords.");
+      }
+
     }
   }
 
@@ -36,7 +41,7 @@ class Search extends React.Component {
             <button className="close-search">Close</button>
           </Link>
           <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author" onKeyPress={this.handleSearch} />
+            <input type="text" placeholder="Search by title or author, press 'Enter' to search" onKeyPress={this.handleSearch} />
           </div>
         </div>
         <div className="search-books-results">
