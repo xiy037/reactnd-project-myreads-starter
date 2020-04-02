@@ -17,10 +17,13 @@ class App extends React.Component {
     }
   }
 
-  addNewBook = (items) => {
-    //add items to allBooks; search result will be local state in Search component.
-    //only selected ones will be added as newBooks and save to server.
-    console.log(items);
+  addNewBook = (item) => {
+    console.log("added", item);
+    this.setState((state) => {
+      state[item.shelf].push(item);
+      BooksAPI.update(item, item.shelf);
+      return state;
+    })
   }
 
   changeCategoryInAll = (old, item) => {

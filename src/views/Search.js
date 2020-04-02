@@ -16,7 +16,6 @@ class Search extends React.Component {
     const userInput = e.target.value.trim();
     if (e.key === "Enter" && userInput !== "") {
       BooksAPI.search(userInput).then((data) => {
-        console.log(data);
         if (data) {
           this.setState((state) => {
             state.result = data;
@@ -41,7 +40,7 @@ class Search extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
-          {this.state.result.length > 0 && <ResultList result={this.state.result} />}
+          {this.state.result.length > 0 && <ResultList result={this.state.result} addBook={this.props.addBook}/>}
           {this.state.result.error && <h1>No Results found for "{this.state.input}"</h1>}
         </div>
       </div>
@@ -52,7 +51,7 @@ class Search extends React.Component {
 function ResultList(props) {
   return (
     <ol className="books-grid">
-      {props.result.map(el => <Book item={el} key={el.id} />)}
+      {props.result.map(el => <Book item={el} key={el.id} addBook={props.addBook}/>)}
     </ol>
   );
 }
