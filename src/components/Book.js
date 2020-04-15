@@ -6,7 +6,7 @@ function Item(props) {
     if (item.shelf !== e.target.value) {
       const old = item.shelf;
       item.shelf = e.target.value;
-      if (old) {
+      if (old !== "none") {
         props.handleSelectChange(old, item);
       } else {
         props.addBook(item);
@@ -21,12 +21,13 @@ function Item(props) {
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${item.imageLinks && item.imageLinks.smallThumbnail})` }}></div>
           <div className="book-shelf-changer">
             <select 
-            value={item.shelf ? item.shelf : "move"}
+            value={item.shelf ? item.shelf : "none"}
             onChange={changeReadStatus}>
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
+              <option value="none" disabled>None</option>
             </select>
           </div>
         </div>

@@ -30,7 +30,7 @@ class App extends React.Component {
     this.setState((state) => {
       state[old] = state[old].filter(el => el.id !== item.id);
       state[item.shelf].push(item);
-      //update category in the backend; "none" is not supported shelf in backend, so "none" option is deleted in Book;
+      //update category in the backend; 
       BooksAPI.update(item, item.shelf);
       return state;
     });
@@ -41,6 +41,7 @@ class App extends React.Component {
     BooksAPI.getAll().then((data) => {
       this.setState((state) => {
         state.allBooks = data;
+        console.log(state.allBooks);
         const categorized = state.allBooks.reduce((prev, curr) => {
           prev[curr.shelf].push(curr);
           return prev;
@@ -64,7 +65,7 @@ class App extends React.Component {
               <MyRead {...this.state} changeShelf={this.changeCategoryInAll} />
             </Route>
             <Route path="/search">
-              <Search addBook={this.addNewBook} />
+              <Search addBook={this.addNewBook} all={this.state.allBooks} changeShelf={this.changeCategoryInAll} />
             </Route>
           </div>
         </div>
