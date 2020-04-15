@@ -6,13 +6,15 @@ import { Link } from 'react-router-dom';
 class MyReads extends React.Component {
 
   render() {
-    const { currentlyReading, wantToRead, read } = this.props;
+    const shelves = {
+      currentlyReading: this.props.currentlyReading,
+      wantToRead: this.props.wantToRead,
+      read: this.props.read
+    }
     return (
       <div className="list-books">
         <Header />
-        <Shelf list={currentlyReading} head="Currently Reading" handleSelect={this.props.changeShelf}/>
-        <Shelf list={wantToRead} head="Want to Read" handleSelect={this.props.changeShelf}/>
-        <Shelf list={read} head="Read" handleSelect={this.props.changeShelf}/>
+        {Object.entries(shelves).map(([k, v]) => <Shelf key={k} list={v} head={k} handleSelect={this.props.changeShelf}/>)}
         <Link to="/search">
           <div className="open-search">
             <button>Add a book</button>
